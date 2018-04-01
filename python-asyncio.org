@@ -1,0 +1,140 @@
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: night
+#+TITLE: channels
+#+AUTHOR: alan.ficagna@deepx.it
+#+OPTIONS: timestamp:nil toc:nil
+
+* Why
+
+  #+ATTR_REVEAL: :frag (roll-in) :frag-idx(1 -)
+  * Humans are the bottleneck of development
+  * Current solutions are not very good
+* State of the art
+
+** Callback troubles
+
+   [[https://www.twilio.com/blog/wp-content/uploads/2017/03/Screen-Shot-2017-03-06-at-5.11.06-PM.png]]
+
+   #+ATTR_REVEAL: :frag (roll-in)
+   Hard to read
+
+** Threading troubles
+
+   [[https://i.imgur.com/CRLzESV.png]]
+
+*** Threads are /hard/ because:
+
+    #+ATTR_REVEAL: :frag (roll-in) :frag-idx (3 2 1 -)
+    * Human beings have a really short, short-term memory.
+    * Prone to bugs (the nasty ones).
+    * Debugging is nearly impossible.
+    * They are also not that useful in python.
+
+* Solution? asyncio!
+
+   #+ATTR_REVEAL: :frag (roll-in)
+   Writing synchronous looking code that executes asynchronously!
+
+   #+ATTR_REVEAL: :frag (roll-in)
+   ~***** assuming python 3.6~
+
+** Coroutines
+
+   Voluntary yielding of execution to other code.
+
+   #+BEGIN_SRC python
+   async def do_something_heavy():
+       for i in range(1000000):
+           await mine_some_bitcoin()
+   #+END_SRC
+
+** Event Loops
+
+** Task and Futures
+
+   #+ATTR_REVEAL: :frag (roll-in) :frag-idx (1 -)
+   * ~Promisse~ like objects.
+   * ~Futures~ < ~Tasks~ (~Task~ is a subclass of ~Future~)
+   * You create them by calling ~loop.ensure_future~
+
+* How
+
+** Making a simple producer/consumer
+
+   #+BEGIN_SRC python
+   import asyncio
+   import handlers # Ficticious module
+
+   async def consumer(queue):
+       while True:
+           item = await queue.get()
+           await handlers.consume(item) #! Must be async
+
+   async def producer(queue):
+       while True:
+           item = await handlers.produce() #! Must be async
+           await queue.put(item)
+   #+END_SRC
+
+   #+REVEAL: split
+
+   #+BEGIN_SRC python
+   queue = asyncio.Queue()
+
+   # Schedule
+   loop.ensure_future(consumer(queue))
+   loop.ensure_future(producer(queue))
+
+   # Starts the loop
+   loop = asyncio.get_event_loop()
+
+   loop.run_forever()
+   #+END_SRC
+
+* Practical advice
+
+** Mixing async and sync code
+
+*** Using executors
+
+    #+BEGIN_SRC python
+    import asyncio
+    import time
+
+
+    def n_sync(n):
+        print("I don't care/Who you are/Where you're from/And what you did"
+        "/As long as you love me, baby")
+        time.sleep(n)
+
+
+    loop = asyncio.get_event_loop()
+    loop.run_in_executor(None, n_sync, 5)
+    #+END_SRC
+
+*** Using queues
+
+    /Janus/, the god that has two faces
+
+    #+BEGIN_SRC python
+    import janus
+    import asyncio
+
+
+    q = janus.Queue(loop=asyncio.get_event_loop())
+    q.async_q
+    q.sync_q
+    #+END_SRC
+
+    ~https://github.com/aio-libs/janus~
+
+** Overcoming the confusing API
+
+   #+ATTR_REVEAL: :frag (roll-in) :frag-idx (1 -)
+   * The IO in the asyncio
+   * Tasks/Coroutines/Futures/Awaitables/Protocols/Transports phew..
+   * What does it all mean for libraries like tornado and twister.
+
+* Questions/Feedback?
+
+  [[https://what.thedailywtf.com/assets/uploads/files/1507231553286-22141062_870865696416398_8985114777431226442_n.png]]

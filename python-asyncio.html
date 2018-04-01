@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>channels</title>
+<meta name="author" content="(alan.ficagna@deepx.it)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/night.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">channels</h1><h2 class="author">alan.ficagna@deepx.it</h2>
+</section>
+
+<section>
+<section id="slide-org94d3e91">
+<h2 id="org94d3e91"><span class="section-number-2">1</span> Why</h2>
+<ul>
+<li class="fragment roll-in">Humans are the bottleneck of development</li>
+<li class="fragment roll-in">Current solutions are not very good</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org0ece103">
+<h2 id="org0ece103"><span class="section-number-2">2</span> State of the art</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+</section>
+<section id="slide-org85ecb72">
+<h3 id="org85ecb72"><span class="section-number-3">2.1</span> Callback troubles</h3>
+
+<div class="figure">
+<p><img src="https://www.twilio.com/blog/wp-content/uploads/2017/03/Screen-Shot-2017-03-06-at-5.11.06-PM.png" alt="Screen-Shot-2017-03-06-at-5.11.06-PM.png" />
+</p>
+</div>
+
+<p class="fragment (roll-in)">
+Hard to read
+</p>
+
+</section>
+<section id="slide-org5f92028">
+<h3 id="org5f92028"><span class="section-number-3">2.2</span> Threading troubles</h3>
+
+<div class="figure">
+<p><img src="https://i.imgur.com/CRLzESV.png" alt="CRLzESV.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org7d78426">
+<h4 id="org7d78426"><span class="section-number-4">2.2.1</span> Threads are <i>hard</i> because:</h4>
+<ul>
+<li class="fragment roll-in">Human beings have a really short, short-term memory.</li>
+<li class="fragment roll-in">Prone to bugs (the nasty ones).</li>
+<li class="fragment roll-in">Debugging is nearly impossible.</li>
+<li class="fragment roll-in">They are also not that useful in python.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3b41958">
+<h2 id="org3b41958"><span class="section-number-2">3</span> Solution? asyncio!</h2>
+<p class="fragment (roll-in)">
+Writing synchronous looking code that executes asynchronously!
+</p>
+
+<p class="fragment (roll-in)">
+<code>***** assuming python 3.6</code>
+</p>
+
+</section>
+<section id="slide-org1ccbfa4">
+<h3 id="org1ccbfa4"><span class="section-number-3">3.1</span> Coroutines</h3>
+<p>
+Voluntary yielding of execution to other code.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">async def</span> <span style="color: #ffa724;">do_something_heavy</span><span style="color: #666462;">()</span>:
+    <span style="color: #ff2c4b; font-weight: bold;">for</span> i <span style="color: #ff2c4b; font-weight: bold;">in</span> <span style="color: #f8f6f2;">range</span><span style="color: #666462;">(</span><span style="color: #b88853;">1000000</span><span style="color: #666462;">)</span>:
+        <span style="color: #ff2c4b; font-weight: bold;">await</span> mine_some_bitcoin<span style="color: #666462;">()</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgbf4a7cc">
+<h3 id="orgbf4a7cc"><span class="section-number-3">3.2</span> Event Loops</h3>
+
+</section>
+<section id="slide-orgc39039b">
+<h3 id="orgc39039b"><span class="section-number-3">3.3</span> Task and Futures</h3>
+<ul>
+<li class="fragment roll-in"><code>Promisse</code> like objects.</li>
+<li class="fragment roll-in"><code>Futures</code> &lt; <code>Tasks</code> (<code>Task</code> is a subclass of <code>Future</code>)</li>
+<li class="fragment roll-in">You create them by calling <code>loop.ensure_future</code></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc0683a0">
+<h2 id="orgc0683a0"><span class="section-number-2">4</span> How</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+</section>
+<section id="slide-org49915ec">
+<h3 id="org49915ec"><span class="section-number-3">4.1</span> Making a simple producer/consumer</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
+<span style="color: #ff2c4b; font-weight: bold;">import</span> handlers <span style="color: #998f84;"># </span><span style="color: #998f84;">Ficticious module</span>
+
+<span style="color: #ff2c4b; font-weight: bold;">async def</span> <span style="color: #ffa724;">consumer</span><span style="color: #666462;">(</span>queue<span style="color: #666462;">)</span>:
+    <span style="color: #ff2c4b; font-weight: bold;">while</span> <span style="color: #b88853;">True</span>:
+        <span style="color: #ffa724;">item</span> = <span style="color: #ff2c4b; font-weight: bold;">await</span> queue.get<span style="color: #666462;">()</span>
+        <span style="color: #ff2c4b; font-weight: bold;">await</span> handlers.consume<span style="color: #666462;">(</span>item<span style="color: #666462;">)</span> <span style="color: #998f84;">#</span><span style="color: #998f84;">! Must be async</span>
+
+<span style="color: #ff2c4b; font-weight: bold;">async def</span> <span style="color: #ffa724;">producer</span><span style="color: #666462;">(</span>queue<span style="color: #666462;">)</span>:
+    <span style="color: #ff2c4b; font-weight: bold;">while</span> <span style="color: #b88853;">True</span>:
+        <span style="color: #ffa724;">item</span> = <span style="color: #ff2c4b; font-weight: bold;">await</span> handlers.produce<span style="color: #666462;">()</span> <span style="color: #998f84;">#</span><span style="color: #998f84;">! Must be async</span>
+        <span style="color: #ff2c4b; font-weight: bold;">await</span> queue.put<span style="color: #666462;">(</span>item<span style="color: #666462;">)</span>
+</pre>
+</div>
+
+</section>
+<section >
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #ffa724;">queue</span> = asyncio.Queue<span style="color: #666462;">()</span>
+
+<span style="color: #998f84;"># </span><span style="color: #998f84;">Schedule</span>
+loop.ensure_future<span style="color: #666462;">(</span>consumer<span style="color: #fade3e;">(</span>queue<span style="color: #fade3e;">)</span><span style="color: #666462;">)</span>
+loop.ensure_future<span style="color: #666462;">(</span>producer<span style="color: #fade3e;">(</span>queue<span style="color: #fade3e;">)</span><span style="color: #666462;">)</span>
+
+<span style="color: #998f84;"># </span><span style="color: #998f84;">Starts the loop</span>
+<span style="color: #ffa724;">loop</span> = asyncio.get_event_loop<span style="color: #666462;">()</span>
+
+loop.run_forever<span style="color: #666462;">()</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc44c33a">
+<h2 id="orgc44c33a"><span class="section-number-2">5</span> Practical advice</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+</section>
+<section id="slide-orgd36427e">
+<h3 id="orgd36427e"><span class="section-number-3">5.1</span> Mixing async and sync code</h3>
+<div class="outline-text-3" id="text-5-1">
+</div>
+</section>
+<section id="slide-org84fe1c7">
+<h4 id="org84fe1c7"><span class="section-number-4">5.1.1</span> Using executors</h4>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
+<span style="color: #ff2c4b; font-weight: bold;">import</span> time
+
+
+<span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">n_sync</span><span style="color: #666462;">(</span>n<span style="color: #666462;">)</span>:
+    <span style="color: #ff2c4b; font-weight: bold;">print</span><span style="color: #666462;">(</span><span style="color: #f4cf86;">"I don't care/Who you are/Where you're from/And what you did"</span>
+    <span style="color: #f4cf86;">"/As long as you love me, baby"</span><span style="color: #666462;">)</span>
+    time.sleep<span style="color: #666462;">(</span>n<span style="color: #666462;">)</span>
+
+
+<span style="color: #ffa724;">loop</span> = asyncio.get_event_loop<span style="color: #666462;">()</span>
+loop.run_in_executor<span style="color: #666462;">(</span><span style="color: #b88853;">None</span>, n_sync, <span style="color: #b88853;">5</span><span style="color: #666462;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org66bdad2">
+<h4 id="org66bdad2"><span class="section-number-4">5.1.2</span> Using queues</h4>
+<p>
+<i>Janus</i>, the god that has two faces
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> janus
+<span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
+
+
+<span style="color: #ffa724;">q</span> = janus.Queue<span style="color: #666462;">(</span>loop=asyncio.get_event_loop<span style="color: #fade3e;">()</span><span style="color: #666462;">)</span>
+q.async_q
+q.sync_q
+</pre>
+</div>
+
+<p>
+<code>https://github.com/aio-libs/janus</code>
+</p>
+
+</section>
+<section id="slide-org2fedd0e">
+<h3 id="org2fedd0e"><span class="section-number-3">5.2</span> Overcoming the confusing API</h3>
+<ul>
+<li class="fragment roll-in">The IO in the asyncio</li>
+<li class="fragment roll-in">Tasks/Coroutines/Futures/Awaitables/Protocols/Transports phew..</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org50f8062">
+<h2 id="org50f8062"><span class="section-number-2">6</span> Questions/Feedback?</h2>
+
+<div class="figure">
+<p><img src="https://what.thedailywtf.com/assets/uploads/files/1507231553286-22141062_870865696416398_8985114777431226442_n.png" alt="1507231553286-22141062_870865696416398_8985114777431226442_n.png" />
+</p>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
