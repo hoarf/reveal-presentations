@@ -1,0 +1,15 @@
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: night
+#+TITLE: channels
+#+AUTHOR: alan.ficagna@deepx.it
+#+OPTIONS: timestamp:nil toc:nil
+
+* Brace yourselves for the conceptual dump
+
+https://vignette.wikia.nocookie.net/dragonball/images/f/f9/Brace-yourself-the-brace-yourself-memes-are-coming.jpg
+
+** Server/Client ~ Publisher/Subscribe
+
+
+
+** Broadcasting
