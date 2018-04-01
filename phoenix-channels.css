@@ -1,0 +1,6 @@
+.reveal h3 img {
+    background-color: transparent;
+    border: 0 solid #000;
+    width: 10%;
+    vertical-align: middle;
+}
