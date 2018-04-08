@@ -1,6 +1,6 @@
 #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+REVEAL_THEME: night
-#+TITLE: channels
+#+TITLE: async/io
 #+AUTHOR: alan.ficagna@deepx.it
 #+OPTIONS: timestamp:nil toc:nil
 

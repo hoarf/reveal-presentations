@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>channels</title>
+<title>async/io</title>
 <meta name="author" content="(alan.ficagna@deepx.it)"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
@@ -26,12 +26,12 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">channels</h1><h2 class="author">alan.ficagna@deepx.it</h2>
+<section id="sec-title-slide"><h1 class="title">async/io</h1><h2 class="author">alan.ficagna@deepx.it</h2>
 </section>
 
 <section>
-<section id="slide-org94d3e91">
-<h2 id="org94d3e91"><span class="section-number-2">1</span> Why</h2>
+<section id="slide-org403d119">
+<h2 id="org403d119"><span class="section-number-2">1</span> Why</h2>
 <ul>
 <li class="fragment roll-in">Humans are the bottleneck of development</li>
 <li class="fragment roll-in">Current solutions are not very good</li>
@@ -40,13 +40,13 @@
 </section>
 </section>
 <section>
-<section id="slide-org0ece103">
-<h2 id="org0ece103"><span class="section-number-2">2</span> State of the art</h2>
+<section id="slide-orgd9ff1f4">
+<h2 id="orgd9ff1f4"><span class="section-number-2">2</span> State of the art</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
-<section id="slide-org85ecb72">
-<h3 id="org85ecb72"><span class="section-number-3">2.1</span> Callback troubles</h3>
+<section id="slide-orga0b3bb0">
+<h3 id="orga0b3bb0"><span class="section-number-3">2.1</span> Callback troubles</h3>
 
 <div class="figure">
 <p><img src="https://www.twilio.com/blog/wp-content/uploads/2017/03/Screen-Shot-2017-03-06-at-5.11.06-PM.png" alt="Screen-Shot-2017-03-06-at-5.11.06-PM.png" />
@@ -58,8 +58,8 @@ Hard to read
 </p>
 
 </section>
-<section id="slide-org5f92028">
-<h3 id="org5f92028"><span class="section-number-3">2.2</span> Threading troubles</h3>
+<section id="slide-org7ab9b13">
+<h3 id="org7ab9b13"><span class="section-number-3">2.2</span> Threading troubles</h3>
 
 <div class="figure">
 <p><img src="https://i.imgur.com/CRLzESV.png" alt="CRLzESV.png" />
@@ -67,8 +67,8 @@ Hard to read
 </div>
 
 </section>
-<section id="slide-org7d78426">
-<h4 id="org7d78426"><span class="section-number-4">2.2.1</span> Threads are <i>hard</i> because:</h4>
+<section id="slide-orgc8dd5f8">
+<h4 id="orgc8dd5f8"><span class="section-number-4">2.2.1</span> Threads are <i>hard</i> because:</h4>
 <ul>
 <li class="fragment roll-in">Human beings have a really short, short-term memory.</li>
 <li class="fragment roll-in">Prone to bugs (the nasty ones).</li>
@@ -80,8 +80,8 @@ Hard to read
 </section>
 </section>
 <section>
-<section id="slide-org3b41958">
-<h2 id="org3b41958"><span class="section-number-2">3</span> Solution? asyncio!</h2>
+<section id="slide-orgd99eedd">
+<h2 id="orgd99eedd"><span class="section-number-2">3</span> Solution? asyncio!</h2>
 <p class="fragment (roll-in)">
 Writing synchronous looking code that executes asynchronously!
 </p>
@@ -91,8 +91,8 @@ Writing synchronous looking code that executes asynchronously!
 </p>
 
 </section>
-<section id="slide-org1ccbfa4">
-<h3 id="org1ccbfa4"><span class="section-number-3">3.1</span> Coroutines</h3>
+<section id="slide-org7b792c8">
+<h3 id="org7b792c8"><span class="section-number-3">3.1</span> Coroutines</h3>
 <p>
 Voluntary yielding of execution to other code.
 </p>
@@ -106,12 +106,12 @@ Voluntary yielding of execution to other code.
 </div>
 
 </section>
-<section id="slide-orgbf4a7cc">
-<h3 id="orgbf4a7cc"><span class="section-number-3">3.2</span> Event Loops</h3>
+<section id="slide-org9b2c8a7">
+<h3 id="org9b2c8a7"><span class="section-number-3">3.2</span> Event Loops</h3>
 
 </section>
-<section id="slide-orgc39039b">
-<h3 id="orgc39039b"><span class="section-number-3">3.3</span> Task and Futures</h3>
+<section id="slide-org4588279">
+<h3 id="org4588279"><span class="section-number-3">3.3</span> Task and Futures</h3>
 <ul>
 <li class="fragment roll-in"><code>Promisse</code> like objects.</li>
 <li class="fragment roll-in"><code>Futures</code> &lt; <code>Tasks</code> (<code>Task</code> is a subclass of <code>Future</code>)</li>
@@ -122,13 +122,13 @@ Voluntary yielding of execution to other code.
 </section>
 </section>
 <section>
-<section id="slide-orgc0683a0">
-<h2 id="orgc0683a0"><span class="section-number-2">4</span> How</h2>
+<section id="slide-orgebea293">
+<h2 id="orgebea293"><span class="section-number-2">4</span> How</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 </section>
-<section id="slide-org49915ec">
-<h3 id="org49915ec"><span class="section-number-3">4.1</span> Making a simple producer/consumer</h3>
+<section id="slide-org635830b">
+<h3 id="org635830b"><span class="section-number-3">4.1</span> Making a simple producer/consumer</h3>
 <div class="org-src-container">
 
 <pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
@@ -167,18 +167,18 @@ loop.run_forever<span style="color: #666462;">()</span>
 </section>
 </section>
 <section>
-<section id="slide-orgc44c33a">
-<h2 id="orgc44c33a"><span class="section-number-2">5</span> Practical advice</h2>
+<section id="slide-orga1dc13e">
+<h2 id="orga1dc13e"><span class="section-number-2">5</span> Practical advice</h2>
 <div class="outline-text-2" id="text-5">
 </div>
 </section>
-<section id="slide-orgd36427e">
-<h3 id="orgd36427e"><span class="section-number-3">5.1</span> Mixing async and sync code</h3>
+<section id="slide-org8eb986d">
+<h3 id="org8eb986d"><span class="section-number-3">5.1</span> Mixing async and sync code</h3>
 <div class="outline-text-3" id="text-5-1">
 </div>
 </section>
-<section id="slide-org84fe1c7">
-<h4 id="org84fe1c7"><span class="section-number-4">5.1.1</span> Using executors</h4>
+<section id="slide-org27cca8e">
+<h4 id="org27cca8e"><span class="section-number-4">5.1.1</span> Using executors</h4>
 <div class="org-src-container">
 
 <pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
@@ -197,8 +197,8 @@ loop.run_in_executor<span style="color: #666462;">(</span><span style="color: #b
 </div>
 
 </section>
-<section id="slide-org66bdad2">
-<h4 id="org66bdad2"><span class="section-number-4">5.1.2</span> Using queues</h4>
+<section id="slide-org245475b">
+<h4 id="org245475b"><span class="section-number-4">5.1.2</span> Using queues</h4>
 <p>
 <i>Janus</i>, the god that has two faces
 </p>
@@ -220,19 +220,20 @@ q.sync_q
 </p>
 
 </section>
-<section id="slide-org2fedd0e">
-<h3 id="org2fedd0e"><span class="section-number-3">5.2</span> Overcoming the confusing API</h3>
+<section id="slide-orgd521a4f">
+<h3 id="orgd521a4f"><span class="section-number-3">5.2</span> Overcoming the confusing API</h3>
 <ul>
 <li class="fragment roll-in">The IO in the asyncio</li>
 <li class="fragment roll-in">Tasks/Coroutines/Futures/Awaitables/Protocols/Transports phew..</li>
+<li class="fragment roll-in">What does it all mean for libraries like tornado and twister.</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org50f8062">
-<h2 id="org50f8062"><span class="section-number-2">6</span> Questions/Feedback?</h2>
+<section id="slide-orga4a41d2">
+<h2 id="orga4a41d2"><span class="section-number-2">6</span> Questions/Feedback?</h2>
 
 <div class="figure">
 <p><img src="https://what.thedailywtf.com/assets/uploads/files/1507231553286-22141062_870865696416398_8985114777431226442_n.png" alt="1507231553286-22141062_870865696416398_8985114777431226442_n.png" />
