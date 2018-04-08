@@ -1,6 +1,14 @@
-.reveal h3 img {
+.reveal h2 img {
     background-color: transparent;
     border: 0 solid #000;
     width: 10%;
     vertical-align: middle;
+}
+
+h1.title {
+    border: 1px solid #637de8;
+}
+
+#questions img {
+    width: 50%;
 }

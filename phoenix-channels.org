@@ -1,22 +1,26 @@
 #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+REVEAL_THEME: night
-#+TITLE: channels
+#+TITLE: phoenix channels
 #+AUTHOR: alan.ficagna@deepx.it
 #+OPTIONS: timestamp:nil toc:nil
 #+REVEAL_EXTRA_CSS: phoenix-channels.css
 
+* Traditional HTTP/S [[https://pixlanim8r.files.wordpress.com/2014/03/vs_6.png]] Channels
 
-* Brace yourselves for the conceptual dump
+  #+ATTR_REVEAL: :frag (roll-in) :frag-idx (-)
+  * MVC is no longer enough.
+  * Allows only one-to-one type of communication.
+  * No way for the server to initiate a conversation.
+  * Updates/notifications have high latency.
+  * Streaming is very weird.
 
-https://vignette.wikia.nocookie.net/dragonball/images/f/f9/Brace-yourself-the-brace-yourself-memes-are-coming.jpg
+* Why Phoenix
 
-** Traditional HTTP/S [[https://pixlanim8r.files.wordpress.com/2014/03/vs_6.png]] Channels
+  [[http://phoenixframework.org/assets/img/blog/2m-ws/top.png]]
 
-   #+ATTR_REVEAL: :frag (roll-in) :frag-idx (-)
-   * Allows only one to one communication
-   * No way for the server to initiate a conversation
-   * Updates/notifications have high latency
-   * Streaming is very weird.
+  [http://phoenixframework.org/blog/the-road-to-2-million-websocket-connections]
+
+  Plus its Phoenix. :)
 
 * Walk through
 
@@ -43,3 +47,119 @@ https://vignette.wikia.nocookie.net/dragonball/images/f/f9/Brace-yourself-the-br
    * ~room:*~ will route every request to ~RoomChannel~
    * Your channel will be available at ~http://localhost:4000/socket/websocket/~
    * You can customize this at ~lib/elixir_meetup_web/endpoint.ex~
+
+** Handling channel events
+
+*** Joining a channel
+
+    #+BEGIN_SRC elixir
+    defmodule ElixirMeetupWeb.RoomChannel do
+      use Phoenix.Channel
+
+      def join("room:lobby", _message, socket) do
+        {:ok, socket}
+      end
+      def join("room:" <> _private_room_id, _params, _socket) do
+        {:error, %{reason: "unauthorized"}}
+      end
+    end
+    #+END_SRC
+
+*** Handling incoming messages
+
+    #+BEGIN_SRC elixir
+    defmodule ElixirMeetupWeb.RoomChannel do
+      use Phoenix.Channel
+
+      # ...
+
+      def handle_in("new_msg", %{"body" => body}, socket) do
+        broadcast! socket, "new_msg", %{body: body}
+        {:noreply, socket}
+      end
+
+      def handle_in(anything, %{"body" => body}, socket) do
+        broadcast_from! socket, anything, %{body: body}
+        {:noreply, socket}
+      end
+    end
+    #+END_SRC
+
+*** Handling outgoing messages
+
+    #+BEGIN_SRC elixir
+    defmodule ElixirMeetupWeb.RoomChannel do
+      use Phoenix.Channel
+      def handle_out("user_joined", msg, socket) do
+        if Accounts.ignoring_user?(socket.assigns[:user], msg.user_id) do
+        {:noreply, socket}
+      else
+        push socket, "user_joined", msg
+        {:noreply, socket}
+      end
+    end
+    #+END_SRC
+
+*** Handling authentication
+
+    #+BEGIN_SRC elixir
+    pipeline :browser do
+       # ...
+       plug OurAuth
+       plug :put_user_token
+    end
+
+    defp put_user_token(conn, _) do
+      if current_user = conn.assigns[:current_user] do
+        token = Phoenix.Token.sign(conn, "user socket", current_user.id)
+        assign(conn, :user_token, token)
+      else
+        conn
+      end
+    end
+    #+END_SRC
+
+*** Handling presence
+
+    #+BEGIN_SRC sh
+    mix phx.gen.presence
+    #+END_SRC
+
+    #+BEGIN_SRC elixir
+    use Phoenix.Presence, otp_app: :elixir_meetup, pubsub_server: ElixirMeetup.PubSub
+    # ...
+
+    # ...
+    # @ application.ex
+
+    children = [
+      supervisor(ElixirWebMeetup.Presence, [])
+    ]
+    # ...
+    alias ElixrWebMeetup.Presence
+
+    def join("room:lobby", _params, socket) do
+      send(self(), :after_join)
+      {:ok, socket}
+    end
+
+    def handle_info(:after_join, socket) do
+      push socket, "presence_state", Presence.list(socket)
+      {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
+        online_at: inspect(System.system_time(:seconds))
+      })
+      {:noreply, socket}
+    end
+    #+END_SRC
+
+*** Keep in mind
+
+    Phoenix will send messages ~at-most-once~.
+
+
+* Questions/Feedback?
+:PROPERTIES:
+:CUSTOM_ID: questions
+:END:
+
+  https://cdn.dopl3r.com/memes_files/11h22-parabens-voce-acaba-de-receber-o-fabio-por-chat-11h22-chega-ngp3d.jpg
