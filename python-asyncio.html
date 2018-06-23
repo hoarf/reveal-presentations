@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/night.css" id="theme"/>
 
+<link rel="stylesheet" href="python-asyncio.css"/>
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -30,23 +31,23 @@
 </section>
 
 <section>
-<section id="slide-org403d119">
-<h2 id="org403d119"><span class="section-number-2">1</span> Why</h2>
+<section id="slide-orgba90767">
+<h2 id="orgba90767"><span class="section-number-2">1</span> Why</h2>
 <ul>
-<li class="fragment roll-in">Humans are the bottleneck of development</li>
-<li class="fragment roll-in">Current solutions are not very good</li>
+<li class="fragment roll-in">Humans are the bottleneck of development.</li>
+<li class="fragment roll-in">Current solutions for the human problem are not very good.</li>
 
 </ul>
 </section>
 </section>
 <section>
-<section id="slide-orgd9ff1f4">
-<h2 id="orgd9ff1f4"><span class="section-number-2">2</span> State of the art</h2>
+<section id="slide-org2457e16">
+<h2 id="org2457e16"><span class="section-number-2">2</span> State of the art</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
-<section id="slide-orga0b3bb0">
-<h3 id="orga0b3bb0"><span class="section-number-3">2.1</span> Callback troubles</h3>
+<section id="slide-orgc9c8d63">
+<h3 id="orgc9c8d63"><span class="section-number-3">2.1</span> Callbacks</h3>
 
 <div class="figure">
 <p><img src="https://www.twilio.com/blog/wp-content/uploads/2017/03/Screen-Shot-2017-03-06-at-5.11.06-PM.png" alt="Screen-Shot-2017-03-06-at-5.11.06-PM.png" />
@@ -58,8 +59,8 @@ Hard to read
 </p>
 
 </section>
-<section id="slide-org7ab9b13">
-<h3 id="org7ab9b13"><span class="section-number-3">2.2</span> Threading troubles</h3>
+<section id="slide-orgb88e4b8">
+<h3 id="orgb88e4b8"><span class="section-number-3">2.2</span> Threading</h3>
 
 <div class="figure">
 <p><img src="https://i.imgur.com/CRLzESV.png" alt="CRLzESV.png" />
@@ -67,32 +68,46 @@ Hard to read
 </div>
 
 </section>
-<section id="slide-orgc8dd5f8">
-<h4 id="orgc8dd5f8"><span class="section-number-4">2.2.1</span> Threads are <i>hard</i> because:</h4>
+<section id="slide-org7502157">
+<h4 id="org7502157"><span class="section-number-4">2.2.1</span> Threads are <i>hard</i> because:</h4>
 <ul>
 <li class="fragment roll-in">Human beings have a really short, short-term memory.</li>
-<li class="fragment roll-in">Prone to bugs (the nasty ones).</li>
+<li class="fragment roll-in">Easy to introduce bugs (the nasty ones).</li>
 <li class="fragment roll-in">Debugging is nearly impossible.</li>
-<li class="fragment roll-in">They are also not that useful in python.</li>
+<li class="fragment roll-in">They are also not that useful in python because of GIL.</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-orgd99eedd">
-<h2 id="orgd99eedd"><span class="section-number-2">3</span> Solution? asyncio!</h2>
+<section id="slide-orgdbed8c6">
+<h2 id="orgdbed8c6"><span class="section-number-2">3</span> Interlude: ASYNC vs PARALLEL</h2>
+<p>
+Async simply means it executes in an order different than the order that it
+was written in.
+</p>
+
+<p>
+Parallel implies more than one execution unit and simultaneous execution.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org8663e59">
+<h2 id="org8663e59"><span class="section-number-2">4</span> Solution? asyncio!</h2>
 <p class="fragment (roll-in)">
 Writing synchronous looking code that executes asynchronously!
 </p>
 
 <p class="fragment (roll-in)">
-<code>***** assuming python 3.6</code>
+<code>* assuming python 3.6</code>
 </p>
 
 </section>
-<section id="slide-org7b792c8">
-<h3 id="org7b792c8"><span class="section-number-3">3.1</span> Coroutines</h3>
+<section id="slide-org0d556ac">
+<h3 id="org0d556ac"><span class="section-number-3">4.1</span> Coroutines</h3>
 <p>
 Voluntary yielding of execution to other code.
 </p>
@@ -106,12 +121,62 @@ Voluntary yielding of execution to other code.
 </div>
 
 </section>
-<section id="slide-org9b2c8a7">
-<h3 id="org9b2c8a7"><span class="section-number-3">3.2</span> Event Loops</h3>
+<section id="slide-event-loop-fig1">
+<h3 id="event-loop-fig1"><a id="orga5cd07f"></a><span class="section-number-3">4.2</span> Event Loops</h3>
+
+<div class="figure">
+<p><img src="./images/IMG_20180622_182717622.jpg" alt="IMG_20180622_182717622.jpg" />
+</p>
+</div>
 
 </section>
-<section id="slide-org4588279">
-<h3 id="org4588279"><span class="section-number-3">3.3</span> Task and Futures</h3>
+<section id="slide-event-loop-fig2">
+<h3 id="event-loop-fig2"><a id="org4d6758e"></a><span class="section-number-3">4.3</span> A</h3>
+
+<div class="figure">
+<p><img src="./images/IMG_20180622_182732241.jpg" alt="IMG_20180622_182732241.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-event-loop-fig3">
+<h3 id="event-loop-fig3"><a id="org3e92625"></a><span class="section-number-3">4.4</span> B</h3>
+
+<div class="figure">
+<p><img src="./images/IMG_20180622_182827365.jpg" alt="IMG_20180622_182827365.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-event-loop-fig4">
+<h3 id="event-loop-fig4"><a id="org88962c6"></a><span class="section-number-3">4.5</span> C</h3>
+
+<div class="figure">
+<p><img src="./images/IMG_20180622_182902077.jpg" alt="IMG_20180622_182902077.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-event-loop-fig5">
+<h3 id="event-loop-fig5"><a id="orgfa02980"></a><span class="section-number-3">4.6</span> D</h3>
+
+<div class="figure">
+<p><img src="./images/IMG_20180622_182915433.jpg" alt="IMG_20180622_182915433.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-event-loop-fig6">
+<h3 id="event-loop-fig6"><a id="org35fe622"></a><span class="section-number-3">4.7</span> E</h3>
+
+<div class="figure">
+<p><img src="./images/IMG_20180622_183056307.jpg" alt="IMG_20180622_183056307.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-org435fb4e">
+<h3 id="org435fb4e"><span class="section-number-3">4.8</span> Task and Futures</h3>
 <ul>
 <li class="fragment roll-in"><code>Promisse</code> like objects.</li>
 <li class="fragment roll-in"><code>Futures</code> &lt; <code>Tasks</code> (<code>Task</code> is a subclass of <code>Future</code>)</li>
@@ -122,13 +187,13 @@ Voluntary yielding of execution to other code.
 </section>
 </section>
 <section>
-<section id="slide-orgebea293">
-<h2 id="orgebea293"><span class="section-number-2">4</span> How</h2>
-<div class="outline-text-2" id="text-4">
+<section id="slide-orgb27d4ec">
+<h2 id="orgb27d4ec"><span class="section-number-2">5</span> How</h2>
+<div class="outline-text-2" id="text-5">
 </div>
 </section>
-<section id="slide-org635830b">
-<h3 id="org635830b"><span class="section-number-3">4.1</span> Making a simple producer/consumer</h3>
+<section id="slide-orgfbc1d3f">
+<h3 id="orgfbc1d3f"><span class="section-number-3">5.1</span> Making a simple producer/consumer</h3>
 <div class="org-src-container">
 
 <pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
@@ -167,18 +232,24 @@ loop.run_forever<span style="color: #666462;">()</span>
 </section>
 </section>
 <section>
-<section id="slide-orga1dc13e">
-<h2 id="orga1dc13e"><span class="section-number-2">5</span> Practical advice</h2>
-<div class="outline-text-2" id="text-5">
+<section id="slide-orgd7d9df4">
+<h2 id="orgd7d9df4"><span class="section-number-2">6</span> Practical advices</h2>
+<div class="outline-text-2" id="text-6">
 </div>
 </section>
-<section id="slide-org8eb986d">
-<h3 id="org8eb986d"><span class="section-number-3">5.1</span> Mixing async and sync code</h3>
-<div class="outline-text-3" id="text-5-1">
+<section id="slide-org6f897bf">
+<h3 id="org6f897bf"><span class="section-number-3">6.1</span> Mixing async and sync code</h3>
+<div class="outline-text-3" id="text-6-1">
 </div>
 </section>
-<section id="slide-org27cca8e">
-<h4 id="org27cca8e"><span class="section-number-4">5.1.1</span> Using executors</h4>
+<section id="slide-org7ffbac0">
+<h4 id="org7ffbac0"><span class="section-number-4">6.1.1</span> Function Coloring</h4>
+<p>
+<a href="http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/</a>
+</p>
+</section>
+<section id="slide-orge7f8574">
+<h4 id="orge7f8574"><span class="section-number-4">6.1.2</span> Using executors</h4>
 <div class="org-src-container">
 
 <pre  class="src src-python"><span style="color: #ff2c4b; font-weight: bold;">import</span> asyncio
@@ -197,8 +268,8 @@ loop.run_in_executor<span style="color: #666462;">(</span><span style="color: #b
 </div>
 
 </section>
-<section id="slide-org245475b">
-<h4 id="org245475b"><span class="section-number-4">5.1.2</span> Using queues</h4>
+<section id="slide-orgdbe6146">
+<h4 id="orgdbe6146"><span class="section-number-4">6.1.3</span> Using queues</h4>
 <p>
 <i>Janus</i>, the god that has two faces
 </p>
@@ -220,8 +291,8 @@ q.sync_q
 </p>
 
 </section>
-<section id="slide-orgd521a4f">
-<h3 id="orgd521a4f"><span class="section-number-3">5.2</span> Overcoming the confusing API</h3>
+<section id="slide-org7f60499">
+<h3 id="org7f60499"><span class="section-number-3">6.2</span> Overcoming the confusing API</h3>
 <ul>
 <li class="fragment roll-in">The IO in the asyncio</li>
 <li class="fragment roll-in">Tasks/Coroutines/Futures/Awaitables/Protocols/Transports phew..</li>
@@ -232,8 +303,8 @@ q.sync_q
 </section>
 </section>
 <section>
-<section id="slide-orga4a41d2">
-<h2 id="orga4a41d2"><span class="section-number-2">6</span> Questions/Feedback?</h2>
+<section id="slide-org97ead7d">
+<h2 id="org97ead7d"><span class="section-number-2">7</span> Questions/Feedback?</h2>
 
 <div class="figure">
 <p><img src="https://what.thedailywtf.com/assets/uploads/files/1507231553286-22141062_870865696416398_8985114777431226442_n.png" alt="1507231553286-22141062_870865696416398_8985114777431226442_n.png" />

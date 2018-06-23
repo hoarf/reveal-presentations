@@ -156,7 +156,6 @@
 
     Phoenix will send messages ~at-most-once~.
 
-
 * Questions/Feedback?
 :PROPERTIES:
 :CUSTOM_ID: questions

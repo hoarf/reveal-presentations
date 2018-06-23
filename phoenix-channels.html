@@ -31,23 +31,22 @@
 </section>
 
 <section>
-<section id="slide-org3ea559b">
-<h2 id="org3ea559b"><span class="section-number-2">1</span> Traditional HTTP/S <img src="https://pixlanim8r.files.wordpress.com/2014/03/vs_6.png" alt="vs_6.png" /> Channels</h2>
+<section id="slide-orgd85c63a">
+<h2 id="orgd85c63a"><span class="section-number-2">1</span> Traditional HTTP/S <img src="https://pixlanim8r.files.wordpress.com/2014/03/vs_6.png" alt="vs_6.png" /> Channels</h2>
 <ul>
+<li class="fragment roll-in">MVC is no longer enough.</li>
 <li class="fragment roll-in">Allows only one-to-one type of communication.</li>
 <li class="fragment roll-in">No way for the server to initiate a conversation.</li>
 <li class="fragment roll-in">Updates/notifications have high latency.</li>
 <li class="fragment roll-in">Streaming is very weird.</li>
-<li class="fragment roll-in">It somewhat breaks the inversion of control design principle.</li>
-<li class="fragment roll-in">MVC is no longer enough.</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-orgecedbfb">
-<h2 id="orgecedbfb"><span class="section-number-2">2</span> Why Phoenix</h2>
+<section id="slide-org221439e">
+<h2 id="org221439e"><span class="section-number-2">2</span> Why Phoenix</h2>
 
 <div class="figure">
 <p><img src="http://phoenixframework.org/assets/img/blog/2m-ws/top.png" alt="top.png" />
@@ -65,13 +64,13 @@ Plus its Phoenix. :)
 </section>
 </section>
 <section>
-<section id="slide-orgc066807">
-<h2 id="orgc066807"><span class="section-number-2">3</span> Walk through</h2>
+<section id="slide-orgc6b33be">
+<h2 id="orgc6b33be"><span class="section-number-2">3</span> Walk through</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
-<section id="slide-orgb5a9f4f">
-<h3 id="orgb5a9f4f"><span class="section-number-3">3.1</span> Install phoenix 1.3+ and begin a new project</h3>
+<section id="slide-org4f23808">
+<h3 id="org4f23808"><span class="section-number-3">3.1</span> Install phoenix 1.3+ and begin a new project</h3>
 <div class="org-src-container">
 
 <pre  class="src src-bash"><span style="color: #998f84;"># </span><span style="color: #998f84;">Assuming node is already installed</span>
@@ -82,8 +81,8 @@ mix phx.new elixir_meetup
 </div>
 
 </section>
-<section id="slide-orge8a73cd">
-<h3 id="orge8a73cd"><span class="section-number-3">3.2</span> Routing</h3>
+<section id="slide-orge2e4948">
+<h3 id="orge2e4948"><span class="section-number-3">3.2</span> Routing</h3>
 <p>
 Uncomment the following line:
 </p>
@@ -104,13 +103,13 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </ul>
 
 </section>
-<section id="slide-org921adde">
-<h3 id="org921adde"><span class="section-number-3">3.3</span> Handling channel events</h3>
+<section id="slide-org794b987">
+<h3 id="org794b987"><span class="section-number-3">3.3</span> Handling channel events</h3>
 <div class="outline-text-3" id="text-3-3">
 </div>
 </section>
-<section id="slide-orge5c6a28">
-<h4 id="orge5c6a28"><span class="section-number-4">3.3.1</span> Joining a channel</h4>
+<section id="slide-orge486cbb">
+<h4 id="orge486cbb"><span class="section-number-4">3.3.1</span> Joining a channel</h4>
 <div class="org-src-container">
 
 <pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">defmodule</span> <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
@@ -127,8 +126,8 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </div>
 
 </section>
-<section id="slide-org6c095df">
-<h4 id="org6c095df"><span class="section-number-4">3.3.2</span> Handling incoming messages</h4>
+<section id="slide-orgeac8af9">
+<h4 id="orgeac8af9"><span class="section-number-4">3.3.2</span> Handling incoming messages</h4>
 <div class="org-src-container">
 
 <pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">defmodule</span> <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
@@ -150,8 +149,8 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </div>
 
 </section>
-<section id="slide-org4704161">
-<h4 id="org4704161"><span class="section-number-4">3.3.3</span> Handling outgoing messages</h4>
+<section id="slide-org9f91429">
+<h4 id="org9f91429"><span class="section-number-4">3.3.3</span> Handling outgoing messages</h4>
 <div class="org-src-container">
 
 <pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">defmodule</span> <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
@@ -168,8 +167,8 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </div>
 
 </section>
-<section id="slide-orga0691fd">
-<h4 id="orga0691fd"><span class="section-number-4">3.3.4</span> Handling authentication</h4>
+<section id="slide-org5b834fc">
+<h4 id="org5b834fc"><span class="section-number-4">3.3.4</span> Handling authentication</h4>
 <div class="org-src-container">
 
 <pre  class="src src-elixir">pipeline <span style="color: #27408b;">:browser</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
@@ -190,8 +189,8 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </div>
 
 </section>
-<section id="slide-orga700b7f">
-<h4 id="orga700b7f"><span class="section-number-4">3.3.5</span> Handling presence</h4>
+<section id="slide-orga575a51">
+<h4 id="orga575a51"><span class="section-number-4">3.3.5</span> Handling presence</h4>
 <div class="org-src-container">
 
 <pre  class="src src-sh">mix phx.gen.presence
@@ -228,18 +227,17 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </div>
 
 </section>
-<section id="slide-orgbe86403">
-<h4 id="orgbe86403"><span class="section-number-4">3.3.6</span> Keep in mind</h4>
+<section id="slide-org8ff6ec6">
+<h4 id="org8ff6ec6"><span class="section-number-4">3.3.6</span> Keep in mind</h4>
 <p>
 Phoenix will send messages <code>at-most-once</code>.
 </p>
-
 
 </section>
 </section>
 <section>
 <section id="slide-questions">
-<h2 id="questions"><a id="org6445c4f"></a><span class="section-number-2">4</span> Questions/Feedback?</h2>
+<h2 id="questions"><a id="org4c5e368"></a><span class="section-number-2">4</span> Questions/Feedback?</h2>
 
 <div class="figure">
 <p><img src="https://cdn.dopl3r.com/memes_files/11h22-parabens-voce-acaba-de-receber-o-fabio-por-chat-11h22-chega-ngp3d.jpg" alt="11h22-parabens-voce-acaba-de-receber-o-fabio-por-chat-11h22-chega-ngp3d.jpg" />

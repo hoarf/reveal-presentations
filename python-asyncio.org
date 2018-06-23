@@ -3,22 +3,23 @@
 #+TITLE: async/io
 #+AUTHOR: alan.ficagna@deepx.it
 #+OPTIONS: timestamp:nil toc:nil
+#+REVEAL_EXTRA_CSS: python-asyncio.css
 
 * Why
 
   #+ATTR_REVEAL: :frag (roll-in) :frag-idx(1 -)
-  * Humans are the bottleneck of development
-  * Current solutions are not very good
+  * Humans are the bottleneck of development.
+  * Current solutions for the human problem are not very good.
 * State of the art
 
-** Callback troubles
+** Callbacks
 
    [[https://www.twilio.com/blog/wp-content/uploads/2017/03/Screen-Shot-2017-03-06-at-5.11.06-PM.png]]
 
    #+ATTR_REVEAL: :frag (roll-in)
    Hard to read
 
-** Threading troubles
+** Threading
 
    [[https://i.imgur.com/CRLzESV.png]]
 
@@ -26,9 +27,16 @@
 
     #+ATTR_REVEAL: :frag (roll-in) :frag-idx (3 2 1 -)
     * Human beings have a really short, short-term memory.
-    * Prone to bugs (the nasty ones).
+    * Easy to introduce bugs (the nasty ones).
     * Debugging is nearly impossible.
-    * They are also not that useful in python.
+    * They are also not that useful in python because of GIL.
+
+* Interlude: ASYNC vs PARALLEL
+
+  Async simply means it executes in an order different than the order that it
+  was written in.
+
+  Parallel implies more than one execution unit and simultaneous execution.
 
 * Solution? asyncio!
 
@@ -36,7 +44,7 @@
    Writing synchronous looking code that executes asynchronously!
 
    #+ATTR_REVEAL: :frag (roll-in)
-   ~***** assuming python 3.6~
+   ~* assuming python 3.6~
 
 ** Coroutines
 
@@ -49,6 +57,46 @@
    #+END_SRC
 
 ** Event Loops
+:PROPERTIES:
+:CUSTOM_ID: event-loop-fig1
+:END:
+
+  [[./images/IMG_20180622_182717622.jpg]]
+
+** A
+:PROPERTIES:
+:CUSTOM_ID: event-loop-fig2
+:END:
+
+  [[./images/IMG_20180622_182732241.jpg]]
+
+** B
+:PROPERTIES:
+:CUSTOM_ID: event-loop-fig3
+:END:
+
+  [[./images/IMG_20180622_182827365.jpg]]
+
+** C
+:PROPERTIES:
+:CUSTOM_ID: event-loop-fig4
+:END:
+
+  [[./images/IMG_20180622_182902077.jpg]]
+
+** D
+:PROPERTIES:
+:CUSTOM_ID: event-loop-fig5
+:END:
+
+  [[./images/IMG_20180622_182915433.jpg]]
+
+** E
+:PROPERTIES:
+:CUSTOM_ID: event-loop-fig6
+:END:
+
+  [[./images/IMG_20180622_183056307.jpg]]
 
 ** Task and Futures
 
@@ -91,10 +139,13 @@
    loop.run_forever()
    #+END_SRC
 
-* Practical advice
+* Practical advices
 
 ** Mixing async and sync code
 
+*** Function Coloring
+
+    http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/
 *** Using executors
 
     #+BEGIN_SRC python
