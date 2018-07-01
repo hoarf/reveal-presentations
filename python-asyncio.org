@@ -129,12 +129,12 @@
    #+BEGIN_SRC python
    queue = asyncio.Queue()
 
-   # Schedule
-   loop.ensure_future(consumer(queue))
-   loop.ensure_future(producer(queue))
-
    # Starts the loop
    loop = asyncio.get_event_loop()
+
+   # Schedule
+   asyncio.ensure_future(consumer(queue))
+   asyncio.ensure_future(producer(queue))
 
    loop.run_forever()
    #+END_SRC
