@@ -9,4 +9,4 @@
   * No scientific evidence that it works.
   * It favors a bottom-up view of the problem while most of the problems are specified in a top down manner.
   * This forces the programmer to make decisions early on about things that are likely to change.
-  * This looks a lot like waterfall and undercuts the agile process's benefits.
+  * This process looks a lot like waterfall and undercuts the agile process's benefits.
