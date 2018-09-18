@@ -1,0 +1,38 @@
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: night
+#+TITLE: Practical Advises in Software Development Time Estimation.
+#+AUTHOR: alan.ficagna@deepx.it
+#+OPTIONS: timestamp:nil toc:nil
+#+REVEAL_EXTRA_CSS: estimations.css
+
+* State Of The Art
+
+** State Of The Art
+
+ What is the lasting knowledge that we can rely on?
+
+** Cone of Uncertainty
+
+   #+REVEAL_HTML: <img style="height:50vh" src="./images/rapid.jpeg">
+
+** Cone of Uncertainty
+
+  http://www.agilenutshell.com/assets/definitions/cone-of-uncertainty.png
+
+  #+REVEAL_SLIDE_FOOTER:
+  http://www.agilenutshell.com/cone_of_uncertainty
+
+** Wormhole of Reality
+
+  https://opensourceconnections.com/blog/uploads/2009/11/WormholeOfReality.jpg
+
+  #+REVEAL_SLIDE_FOOTER:
+  https://opensourceconnections.com/blog/2009/11/04/estimation-the-cone-of-uncertainty-vs-the-wormhole-of-reality/
+
+
+* Practical Advises
+
+ #+ATTR_REVEAL: :frag (roll-in) :frag-idx (-)
+ * Think probabilistically.
+ * Make mental money bets.
+ * Meta advises.

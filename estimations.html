@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Practical Advises in Software Development Time Estimation.</title>
+<meta name="author" content="(alan.ficagna@deepx.it)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/night.css" id="theme"/>
+
+<link rel="stylesheet" href="estimations.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Practical Advises in Software Development Time Estimation.</h1><h2 class="author">alan.ficagna@deepx.it</h2>
+</section>
+
+<section>
+<section id="slide-orga4dc310">
+<h2 id="orga4dc310"><span class="section-number-2">1</span> State Of The Art</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgcb5e34a">
+<h3 id="orgcb5e34a"><span class="section-number-3">1.1</span> State Of The Art</h3>
+<p>
+What is the lasting knowledge that we can rely on?
+</p>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-org4f32257">
+<h3 id="org4f32257"><span class="section-number-3">1.2</span> Cone of Uncertainty</h3>
+<img style="height:50vh" src="./images/rapid.jpeg">
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgd75f2d1">
+<h3 id="orgd75f2d1"><span class="section-number-3">1.3</span> Cone of Uncertainty</h3>
+
+<div class="figure">
+<p><img src="http://www.agilenutshell.com/assets/definitions/cone-of-uncertainty.png" alt="cone-of-uncertainty.png" />
+</p>
+</div>
+
+<p>
+<a href="http://www.agilenutshell.com/cone_of_uncertainty">http://www.agilenutshell.com/cone_of_uncertainty</a>
+</p>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgb845093">
+<h3 id="orgb845093"><span class="section-number-3">1.4</span> Wormhole of Reality</h3>
+
+<div class="figure">
+<p><img src="https://opensourceconnections.com/blog/uploads/2009/11/WormholeOfReality.jpg" alt="WormholeOfReality.jpg" />
+</p>
+</div>
+
+<p>
+<a href="https://opensourceconnections.com/blog/2009/11/04/estimation-the-cone-of-uncertainty-vs-the-wormhole-of-reality/">https://opensourceconnections.com/blog/2009/11/04/estimation-the-cone-of-uncertainty-vs-the-wormhole-of-reality/</a>
+</p>
+
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-org7caa3b8">
+<h2 id="org7caa3b8"><span class="section-number-2">2</span> Practical Advises</h2>
+<ul>
+<li class="fragment roll-in">Think probabilistically.</li>
+<li class="fragment roll-in">Make mental money bets.</li>
+<li class="fragment roll-in">Meta advises.</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
