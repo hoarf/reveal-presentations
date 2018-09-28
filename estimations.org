@@ -1,7 +1,7 @@
 #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+REVEAL_THEME: night
 #+TITLE: Practical Advises in Software Development Time Estimation.
-#+AUTHOR: alan.ficagna@deepx.it
+#+AUTHOR: alan.ficagna@gmail.com
 #+OPTIONS: timestamp:nil toc:nil
 #+REVEAL_EXTRA_CSS: estimations.css
 
