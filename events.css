@@ -1,0 +1,11 @@
+.reveal section img {
+  border: 0px
+}
+
+.quote {
+  color: lightgrey
+}
+
+.no-quote {
+  color: black
+}

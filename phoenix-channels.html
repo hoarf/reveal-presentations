@@ -31,8 +31,8 @@
 </section>
 
 <section>
-<section id="slide-orgd85c63a">
-<h2 id="orgd85c63a"><span class="section-number-2">1</span> Traditional HTTP/S <img src="https://pixlanim8r.files.wordpress.com/2014/03/vs_6.png" alt="vs_6.png" /> Channels</h2>
+<section id="slide-orgd167899">
+<h2 id="orgd167899"><span class="section-number-2">1</span> Traditional HTTP/S <img src="https://pixlanim8r.files.wordpress.com/2014/03/vs_6.png" alt="vs_6.png" /> Channels</h2>
 <ul>
 <li class="fragment roll-in">MVC is no longer enough.</li>
 <li class="fragment roll-in">Allows only one-to-one type of communication.</li>
@@ -45,8 +45,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org221439e">
-<h2 id="org221439e"><span class="section-number-2">2</span> Why Phoenix</h2>
+<section id="slide-org117ac34">
+<h2 id="org117ac34"><span class="section-number-2">2</span> Why Phoenix</h2>
 
 <div class="figure">
 <p><img src="http://phoenixframework.org/assets/img/blog/2m-ws/top.png" alt="top.png" />
@@ -64,16 +64,16 @@ Plus its Phoenix. :)
 </section>
 </section>
 <section>
-<section id="slide-orgc6b33be">
-<h2 id="orgc6b33be"><span class="section-number-2">3</span> Walk through</h2>
+<section id="slide-org3e3c550">
+<h2 id="org3e3c550"><span class="section-number-2">3</span> Walk through</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
-<section id="slide-org4f23808">
-<h3 id="org4f23808"><span class="section-number-3">3.1</span> Install phoenix 1.3+ and begin a new project</h3>
+<section id="slide-orge085400">
+<h3 id="orge085400"><span class="section-number-3">3.1</span> Install phoenix 1.3+ and begin a new project</h3>
 <div class="org-src-container">
 
-<pre  class="src src-bash"><span style="color: #998f84;"># </span><span style="color: #998f84;">Assuming node is already installed</span>
+<pre  class="src src-bash"><span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Assuming node is already installed</span>
 mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez
 
 mix phx.new elixir_meetup
@@ -81,16 +81,16 @@ mix phx.new elixir_meetup
 </div>
 
 </section>
-<section id="slide-orge2e4948">
-<h3 id="orge2e4948"><span class="section-number-3">3.2</span> Routing</h3>
+<section id="slide-org05f2c3c">
+<h3 id="org05f2c3c"><span class="section-number-3">3.2</span> Routing</h3>
 <p>
 Uncomment the following line:
 </p>
 
 <div class="org-src-container">
 
-<pre  class="src src-elixir"><span style="color: #998f84;"># </span><span style="color: #998f84;">@lib/elixir_meetup_web/channels/user_socket.ex</span>
-channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span>
+<pre  class="src src-elixir"><span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">@lib/elixir_meetup_web/channels/user_socket.ex</span>
+channel <span style="color: #CC9393;">"room:*"</span>, <span style="color: #7CB8BB;">ElixirMeetupWeb.RoomChannel</span>
 </pre>
 </div>
 
@@ -103,94 +103,94 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 </ul>
 
 </section>
-<section id="slide-org794b987">
-<h3 id="org794b987"><span class="section-number-3">3.3</span> Handling channel events</h3>
+<section id="slide-orgca428e0">
+<h3 id="orgca428e0"><span class="section-number-3">3.3</span> Handling channel events</h3>
 <div class="outline-text-3" id="text-3-3">
 </div>
 </section>
-<section id="slide-orge486cbb">
-<h4 id="orge486cbb"><span class="section-number-4">3.3.1</span> Joining a channel</h4>
+<section id="slide-org019a587">
+<h4 id="org019a587"><span class="section-number-4">3.3.1</span> Joining a channel</h4>
 <div class="org-src-container">
 
-<pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">defmodule</span> <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-  <span style="color: #ff2c4b; font-weight: bold;">use</span> <span style="color: #ff9eb8;">Phoenix.Channel</span>
+<pre  class="src src-elixir"><span style="color: #F0DFAF; font-weight: bold;">defmodule</span> <span style="color: #7CB8BB;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  <span style="color: #F0DFAF; font-weight: bold;">use</span> <span style="color: #7CB8BB;">Phoenix.Channel</span>
 
-  <span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">join</span><span style="color: #666462;">(</span><span style="color: #f4cf86;">"room:lobby"</span>, <span style="color: #998f84;">_message</span>, socket<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    <span style="color: #666462;">{</span><span style="color: #27408b;">:ok</span>, socket<span style="color: #666462;">}</span>
-  <span style="color: #ff2c4b; font-weight: bold;">end</span>
-  <span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">join</span><span style="color: #666462;">(</span><span style="color: #f4cf86;">"room:"</span> &lt;&gt; <span style="color: #998f84;">_private_room_id</span>, <span style="color: #998f84;">_params</span>, <span style="color: #998f84;">_socket</span><span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    <span style="color: #666462;">{</span><span style="color: #27408b;">:error</span>, %<span style="color: #fade3e;">{</span><span style="color: #27408b;">reason:</span> <span style="color: #f4cf86;">"unauthorized"</span><span style="color: #fade3e;">}</span><span style="color: #666462;">}</span>
-  <span style="color: #ff2c4b; font-weight: bold;">end</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">join</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">"room:lobby"</span>, <span style="color: #7F9F7F;">_message</span>, socket<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:ok</span>, socket<span style="color: #DCDCCC;">}</span>
+  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">join</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">"room:"</span> &lt;&gt; <span style="color: #7F9F7F;">_private_room_id</span>, <span style="color: #7F9F7F;">_params</span>, <span style="color: #7F9F7F;">_socket</span><span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:error</span>, %<span style="color: #BFEBBF;">{</span><span style="color: #27408b;">reason:</span> <span style="color: #CC9393;">"unauthorized"</span><span style="color: #BFEBBF;">}</span><span style="color: #DCDCCC;">}</span>
+  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 </pre>
 </div>
 
 </section>
-<section id="slide-orgeac8af9">
-<h4 id="orgeac8af9"><span class="section-number-4">3.3.2</span> Handling incoming messages</h4>
+<section id="slide-org33a7722">
+<h4 id="org33a7722"><span class="section-number-4">3.3.2</span> Handling incoming messages</h4>
 <div class="org-src-container">
 
-<pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">defmodule</span> <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-  <span style="color: #ff2c4b; font-weight: bold;">use</span> <span style="color: #ff9eb8;">Phoenix.Channel</span>
+<pre  class="src src-elixir"><span style="color: #F0DFAF; font-weight: bold;">defmodule</span> <span style="color: #7CB8BB;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  <span style="color: #F0DFAF; font-weight: bold;">use</span> <span style="color: #7CB8BB;">Phoenix.Channel</span>
 
-  <span style="color: #998f84;"># </span><span style="color: #998f84;">...</span>
+  <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">...</span>
 
-  <span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">handle_in</span><span style="color: #666462;">(</span><span style="color: #f4cf86;">"new_msg"</span>, %<span style="color: #fade3e;">{</span><span style="color: #f4cf86;">"body"</span> =&gt; body<span style="color: #fade3e;">}</span>, socket<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    broadcast! socket, <span style="color: #f4cf86;">"new_msg"</span>, %<span style="color: #666462;">{</span><span style="color: #27408b;">body:</span> body<span style="color: #666462;">}</span>
-    <span style="color: #666462;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #666462;">}</span>
-  <span style="color: #ff2c4b; font-weight: bold;">end</span>
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">handle_in</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">"new_msg"</span>, %<span style="color: #BFEBBF;">{</span><span style="color: #CC9393;">"body"</span> =&gt; body<span style="color: #BFEBBF;">}</span>, socket<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    broadcast! socket, <span style="color: #CC9393;">"new_msg"</span>, %<span style="color: #DCDCCC;">{</span><span style="color: #27408b;">body:</span> body<span style="color: #DCDCCC;">}</span>
+    <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #DCDCCC;">}</span>
+  <span style="color: #F0DFAF; font-weight: bold;">end</span>
 
-  <span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">handle_in</span><span style="color: #666462;">(</span>anything, %<span style="color: #fade3e;">{</span><span style="color: #f4cf86;">"body"</span> =&gt; body<span style="color: #fade3e;">}</span>, socket<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    broadcast_from! socket, anything, %<span style="color: #666462;">{</span><span style="color: #27408b;">body:</span> body<span style="color: #666462;">}</span>
-    <span style="color: #666462;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #666462;">}</span>
-  <span style="color: #ff2c4b; font-weight: bold;">end</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">handle_in</span><span style="color: #DCDCCC;">(</span>anything, %<span style="color: #BFEBBF;">{</span><span style="color: #CC9393;">"body"</span> =&gt; body<span style="color: #BFEBBF;">}</span>, socket<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    broadcast_from! socket, anything, %<span style="color: #DCDCCC;">{</span><span style="color: #27408b;">body:</span> body<span style="color: #DCDCCC;">}</span>
+    <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #DCDCCC;">}</span>
+  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 </pre>
 </div>
 
 </section>
-<section id="slide-org9f91429">
-<h4 id="org9f91429"><span class="section-number-4">3.3.3</span> Handling outgoing messages</h4>
+<section id="slide-org9a9f7c2">
+<h4 id="org9a9f7c2"><span class="section-number-4">3.3.3</span> Handling outgoing messages</h4>
 <div class="org-src-container">
 
-<pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">defmodule</span> <span style="color: #ff9eb8;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-  <span style="color: #ff2c4b; font-weight: bold;">use</span> <span style="color: #ff9eb8;">Phoenix.Channel</span>
-  <span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">handle_out</span><span style="color: #666462;">(</span><span style="color: #f4cf86;">"user_joined"</span>, msg, socket<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    <span style="color: #ff2c4b; font-weight: bold;">if</span> <span style="color: #ff9eb8;">Accounts</span>.ignoring_user?<span style="color: #666462;">(</span>socket.assigns<span style="color: #fade3e;">[</span><span style="color: #27408b;">:user</span><span style="color: #fade3e;">]</span>, msg.user_id<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    <span style="color: #666462;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #666462;">}</span>
-  <span style="color: #ff2c4b; font-weight: bold;">else</span>
-    push socket, <span style="color: #f4cf86;">"user_joined"</span>, msg
-    <span style="color: #666462;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #666462;">}</span>
-  <span style="color: #ff2c4b; font-weight: bold;">end</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+<pre  class="src src-elixir"><span style="color: #F0DFAF; font-weight: bold;">defmodule</span> <span style="color: #7CB8BB;">ElixirMeetupWeb.RoomChannel</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  <span style="color: #F0DFAF; font-weight: bold;">use</span> <span style="color: #7CB8BB;">Phoenix.Channel</span>
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">handle_out</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">"user_joined"</span>, msg, socket<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    <span style="color: #F0DFAF; font-weight: bold;">if</span> <span style="color: #7CB8BB;">Accounts</span>.ignoring_user?<span style="color: #DCDCCC;">(</span>socket.assigns<span style="color: #BFEBBF;">[</span><span style="color: #27408b;">:user</span><span style="color: #BFEBBF;">]</span>, msg.user_id<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #DCDCCC;">}</span>
+  <span style="color: #F0DFAF; font-weight: bold;">else</span>
+    push socket, <span style="color: #CC9393;">"user_joined"</span>, msg
+    <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #DCDCCC;">}</span>
+  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 </pre>
 </div>
 
 </section>
-<section id="slide-org5b834fc">
-<h4 id="org5b834fc"><span class="section-number-4">3.3.4</span> Handling authentication</h4>
+<section id="slide-orgc4935c5">
+<h4 id="orgc4935c5"><span class="section-number-4">3.3.4</span> Handling authentication</h4>
 <div class="org-src-container">
 
-<pre  class="src src-elixir">pipeline <span style="color: #27408b;">:browser</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-   <span style="color: #998f84;"># </span><span style="color: #998f84;">...</span>
-   plug <span style="color: #ff9eb8;">OurAuth</span>
+<pre  class="src src-elixir">pipeline <span style="color: #27408b;">:browser</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+   <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">...</span>
+   plug <span style="color: #7CB8BB;">OurAuth</span>
    plug <span style="color: #27408b;">:put_user_token</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 
-<span style="color: #ff2c4b; font-weight: bold;">defp</span> <span style="color: #ffa724;">put_user_token</span><span style="color: #666462;">(</span>conn, <span style="color: #b88853;">_</span><span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-  <span style="color: #ff2c4b; font-weight: bold;">if</span> <span style="color: #ffa724;">current_user</span> = conn.assigns<span style="color: #666462;">[</span><span style="color: #27408b;">:current_user</span><span style="color: #666462;">]</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-    <span style="color: #ffa724;">token</span> = <span style="color: #ff9eb8;">Phoenix.Token</span>.sign<span style="color: #666462;">(</span>conn, <span style="color: #f4cf86;">"user socket"</span>, current_user.id<span style="color: #666462;">)</span>
-    assign<span style="color: #666462;">(</span>conn, <span style="color: #27408b;">:user_token</span>, token<span style="color: #666462;">)</span>
-  <span style="color: #ff2c4b; font-weight: bold;">else</span>
+<span style="color: #F0DFAF; font-weight: bold;">defp</span> <span style="color: #93E0E3;">put_user_token</span><span style="color: #DCDCCC;">(</span>conn, <span style="color: #BFEBBF;">_</span><span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  <span style="color: #F0DFAF; font-weight: bold;">if</span> <span style="color: #DFAF8F;">current_user</span> = conn.assigns<span style="color: #DCDCCC;">[</span><span style="color: #27408b;">:current_user</span><span style="color: #DCDCCC;">]</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+    <span style="color: #DFAF8F;">token</span> = <span style="color: #7CB8BB;">Phoenix.Token</span>.sign<span style="color: #DCDCCC;">(</span>conn, <span style="color: #CC9393;">"user socket"</span>, current_user.id<span style="color: #DCDCCC;">)</span>
+    assign<span style="color: #DCDCCC;">(</span>conn, <span style="color: #27408b;">:user_token</span>, token<span style="color: #DCDCCC;">)</span>
+  <span style="color: #F0DFAF; font-weight: bold;">else</span>
     conn
-  <span style="color: #ff2c4b; font-weight: bold;">end</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 </pre>
 </div>
 
 </section>
-<section id="slide-orga575a51">
-<h4 id="orga575a51"><span class="section-number-4">3.3.5</span> Handling presence</h4>
+<section id="slide-org5fea9f3">
+<h4 id="org5fea9f3"><span class="section-number-4">3.3.5</span> Handling presence</h4>
 <div class="org-src-container">
 
 <pre  class="src src-sh">mix phx.gen.presence
@@ -199,36 +199,36 @@ channel <span style="color: #f4cf86;">"room:*"</span>, <span style="color: #ff9e
 
 <div class="org-src-container">
 
-<pre  class="src src-elixir"><span style="color: #ff2c4b; font-weight: bold;">use</span> <span style="color: #ff9eb8;">Phoenix.Presence</span>, <span style="color: #27408b;">otp_app:</span> <span style="color: #27408b;">:elixir_meetup</span>, <span style="color: #27408b;">pubsub_server:</span> <span style="color: #ff9eb8;">ElixirMeetup.PubSub</span>
-<span style="color: #998f84;"># </span><span style="color: #998f84;">...</span>
+<pre  class="src src-elixir"><span style="color: #F0DFAF; font-weight: bold;">use</span> <span style="color: #7CB8BB;">Phoenix.Presence</span>, <span style="color: #27408b;">otp_app:</span> <span style="color: #27408b;">:elixir_meetup</span>, <span style="color: #27408b;">pubsub_server:</span> <span style="color: #7CB8BB;">ElixirMeetup.PubSub</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">...</span>
 
-<span style="color: #998f84;"># </span><span style="color: #998f84;">...</span>
-<span style="color: #998f84;"># </span><span style="color: #998f84;">@ application.ex</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">...</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">@ application.ex</span>
 
-<span style="color: #ffa724;">children</span> = <span style="color: #666462;">[</span>
-  supervisor<span style="color: #fade3e;">(</span><span style="color: #ff9eb8;">ElixirWebMeetup.Presence</span>, <span style="color: #ff9eb8;">[]</span><span style="color: #fade3e;">)</span>
-<span style="color: #666462;">]</span>
-<span style="color: #998f84;"># </span><span style="color: #998f84;">...</span>
-<span style="color: #ff2c4b; font-weight: bold;">alias</span> <span style="color: #ff9eb8;">ElixrWebMeetup.Presence</span>
+<span style="color: #DFAF8F;">children</span> = <span style="color: #DCDCCC;">[</span>
+  supervisor<span style="color: #BFEBBF;">(</span><span style="color: #7CB8BB;">ElixirWebMeetup.Presence</span>, <span style="color: #D0BF8F;">[]</span><span style="color: #BFEBBF;">)</span>
+<span style="color: #DCDCCC;">]</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">...</span>
+<span style="color: #F0DFAF; font-weight: bold;">alias</span> <span style="color: #7CB8BB;">ElixrWebMeetup.Presence</span>
 
-<span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">join</span><span style="color: #666462;">(</span><span style="color: #f4cf86;">"room:lobby"</span>, <span style="color: #998f84;">_params</span>, socket<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-  <span style="color: #ff2c4b; font-weight: bold;">send</span><span style="color: #666462;">(</span>self<span style="color: #fade3e;">()</span>, <span style="color: #27408b;">:after_join</span><span style="color: #666462;">)</span>
-  <span style="color: #666462;">{</span><span style="color: #27408b;">:ok</span>, socket<span style="color: #666462;">}</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">join</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">"room:lobby"</span>, <span style="color: #7F9F7F;">_params</span>, socket<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  <span style="color: #F0DFAF; font-weight: bold;">send</span><span style="color: #DCDCCC;">(</span>self<span style="color: #BFEBBF;">()</span>, <span style="color: #27408b;">:after_join</span><span style="color: #DCDCCC;">)</span>
+  <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:ok</span>, socket<span style="color: #DCDCCC;">}</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 
-<span style="color: #ff2c4b; font-weight: bold;">def</span> <span style="color: #ffa724;">handle_info</span><span style="color: #666462;">(</span><span style="color: #27408b;">:after_join</span>, socket<span style="color: #666462;">)</span> <span style="color: #ff2c4b; font-weight: bold;">do</span>
-  push socket, <span style="color: #f4cf86;">"presence_state"</span>, <span style="color: #ff9eb8;">Presence</span>.list<span style="color: #666462;">(</span>socket<span style="color: #666462;">)</span>
-  <span style="color: #666462;">{</span><span style="color: #27408b;">:ok</span>, <span style="color: #b88853;">_</span><span style="color: #666462;">}</span> = <span style="color: #ff9eb8;">Presence</span>.track<span style="color: #666462;">(</span>socket, socket.assigns.user_id, %<span style="color: #fade3e;">{</span>
-    <span style="color: #27408b;">online_at:</span> inspect<span style="color: #ff9eb8;">(</span><span style="color: #ff9eb8;">System</span>.system_time<span style="color: #ffa724;">(</span><span style="color: #27408b;">:seconds</span><span style="color: #ffa724;">)</span><span style="color: #ff9eb8;">)</span>
-  <span style="color: #fade3e;">}</span><span style="color: #666462;">)</span>
-  <span style="color: #666462;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #666462;">}</span>
-<span style="color: #ff2c4b; font-weight: bold;">end</span>
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">handle_info</span><span style="color: #DCDCCC;">(</span><span style="color: #27408b;">:after_join</span>, socket<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  push socket, <span style="color: #CC9393;">"presence_state"</span>, <span style="color: #7CB8BB;">Presence</span>.list<span style="color: #DCDCCC;">(</span>socket<span style="color: #DCDCCC;">)</span>
+  <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:ok</span>, <span style="color: #BFEBBF;">_</span><span style="color: #DCDCCC;">}</span> = <span style="color: #7CB8BB;">Presence</span>.track<span style="color: #DCDCCC;">(</span>socket, socket.assigns.user_id, %<span style="color: #BFEBBF;">{</span>
+    <span style="color: #27408b;">online_at:</span> inspect<span style="color: #D0BF8F;">(</span><span style="color: #7CB8BB;">System</span>.system_time<span style="color: #93E0E3;">(</span><span style="color: #27408b;">:seconds</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
+  <span style="color: #BFEBBF;">}</span><span style="color: #DCDCCC;">)</span>
+  <span style="color: #DCDCCC;">{</span><span style="color: #27408b;">:noreply</span>, socket<span style="color: #DCDCCC;">}</span>
+<span style="color: #F0DFAF; font-weight: bold;">end</span>
 </pre>
 </div>
 
 </section>
-<section id="slide-org8ff6ec6">
-<h4 id="org8ff6ec6"><span class="section-number-4">3.3.6</span> Keep in mind</h4>
+<section id="slide-org7f82a39">
+<h4 id="org7f82a39"><span class="section-number-4">3.3.6</span> Keep in mind</h4>
 <p>
 Phoenix will send messages <code>at-most-once</code>.
 </p>
@@ -237,7 +237,7 @@ Phoenix will send messages <code>at-most-once</code>.
 </section>
 <section>
 <section id="slide-questions">
-<h2 id="questions"><a id="org4c5e368"></a><span class="section-number-2">4</span> Questions/Feedback?</h2>
+<h2 id="questions"><span class="section-number-2">4</span> Questions/Feedback?</h2>
 
 <div class="figure">
 <p><img src="https://cdn.dopl3r.com/memes_files/11h22-parabens-voce-acaba-de-receber-o-fabio-por-chat-11h22-chega-ngp3d.jpg" alt="11h22-parabens-voce-acaba-de-receber-o-fabio-por-chat-11h22-chega-ngp3d.jpg" />

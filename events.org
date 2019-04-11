@@ -1,0 +1,239 @@
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: night
+#+TITLE: Two Years of Event Driven Development using Elixir et al.
+#+AUTHOR: alan.ficagna@gmail.com
+#+OPTIONS: timestamp:nil toc:nil num:nil reveal_title_slide:nil
+#+REVEAL_MAX_SCALE: 2
+#+REVEAL_MIN_SCALE: 1.5
+#+REVEAL_EXTRA_CSS: events.css
+#+REVEAL_TRANS: fade-out
+#+REVEAL_SPEED: fast
+
+* ✌ Two Years of Event Driven Development using Elixir et al.
+  @hoarf
+   #+REVEAL_HTML: <img style="height:30vh" src="./images/xzaFPYar_400x400.jpg">
+* 🎥 TS;GM
+  Too Short; Gimme More
+
+  [[https://www.youtube.com/playlist?list=PLJbJcb79RTlLaSZSWa1C6RYZ-bRhPlL4Y][FP Must Listen]]
+* 🗺 Road Map.
+  1. The whats and whys of Event Driven Programming.
+  2. Functional Programming for normal people.
+  3. Elixir and Phoenix advises.
+* 🎵 Event Driven Programming.
+** The Existential Questions!!
+*** What is an Event?
+     #+BEGIN_SRC python
+       # Version 1 // passive
+       # cart.py
+       def add_product(self, product):
+           self.invoice.update(product)
+
+
+       # Version 2 // reactive
+       # invoice.py
+       def on_product_added(product):
+           self.total += product.value
+     #+END_SRC
+*** Commands vs Events?
+    #+ATTR_REVEAL: :frag (appear)
+   * Commands imply an expectation for a response.
+** Disadvantages
+   #+ATTR_REVEAL: :frag (appear)
+   * Harder to follow the execution of a program.
+   * To understand what something affects, you must search around.
+   * Lets look at a good example of non event driven designed module.
+     #+ATTR_REVEAL: :frag (appear)
+     * [[https://hexdocs.pm/elixir/Enum.html][Enum]]
+     * Why isn't Enum event driven.
+** Advantages
+   #+ATTR_REVEAL: :frag (appear)
+   * ~May~ lead to decoupling if you use event sourcing.
+   * To understand how something works, just look at the file.
+** Events are the ~Thingfication of Computation~.
+** Practical advice.
++------+-----------------+-----------------+
+|      | Reactive        | Passive         |
++------+-----------------+-----------------+
+| Easy | How it works    | What it affects |
++------+-----------------+-----------------+
+| Hard | What if affects | How it works    |
++------+-----------------+-----------------+
+*** So..
+   * Knowing how things works is usually better than knowing what it affects
+     because it's how people approach code.
+   * That makes events a good default.
+** Event Notification vs Event Sourcing.
+   #+ATTR_REVEAL: :frag (appear)
+   * Event Notification: More bandwidth.
+   * Event Sourcing: More isolation.
+   * Use event sourcing if you need traceability.
+** Event Sourcing.
+*** Event Sourcing implies a Message Queue system of some sorts.
+*** Dealing with Message Queues add another layer of complexity to your application.
+    #+ATTR_REVEAL: :frag (appear)
+    * Message queue abstraction leaks.
+      * How can you guarantee the order of messages.
+      * How to deal with eventual consistency issues.
+      * Algorithm for electing the new leader in a kafka node.
+*** Schema?
+    #+ATTR_REVEAL: :frag (appear)
+    * Add some kind of schema validation. (Proto buffers)
+    * SOAP all over again?
+*** Versioning?
+    #+ATTR_REVEAL: :frag (appear)
+    #+BEGIN_SRC elixir
+    defmodule Product
+      @taxes = 0.23
+      defstruct [:value]
+      def calculate_taxes(product_added_event) do
+        %TaxCalculatedEvent{
+          total: product_added_event.product.value * @taxes
+        }
+      end
+    end
+    #+END_SRC
+    #+ATTR_REVEAL: :frag (appear)
+    * Add some version to your events!
+*** Questions?
+* 📉 Functional Programming.
+** Monads tho?
+   #+ATTR_REVEAL: :frag (appear)
+   * Monads are just a monoid in the category of endofunctors.
+   * ?
+   * ???????????????????????????????????????????????????????????????????????
+
+** Characteristics
+   #+ATTR_REVEAL: :frag (appear)
+   * Immutable data types: Facilitated Parallelism.
+   * Composability: Increase cohesion and resusability.
+   * Purity: Predictability.
+   * Referential transparency: Easy testing.
+   * Separation between code and effect.
+** Monoids are one honking great idea -- let's do more of those!
+   #+ATTR_REVEAL: :frag (appear)
+   * 1+2 = 3 -> Closure
+   * (1+2)+3 = 1+(2+3) = 6 -> Associativity
+   * 1+0 = 0+1 = 1 -> Neutral element
+   * Strings/Lists + concat
+** So what
+   #+REVEAL_HTML: <img style="height:30vh" src="./images/whocares.webp">
+*** Closure
+    #+ATTR_REVEAL: :frag (appear)
+    * Pairwise operation can be used on lists. (Reduce)
+*** Associativity
+    #+ATTR_REVEAL: :frag (appear)
+   * Paralelism
+    (1+2) --- (2+3)
+*** Neutral element.
+    #+ATTR_REVEAL: :frag (appear)
+    Useful to deal with cases like empty lists or missing data.
+*** Neat secret.
+    #+ATTR_REVEAL: :frag (appear)
+    * An algebraic type of monoids is also a monoid.
+    * An algebraic type is either a product type (records) or a sum type (optionals).
+*** q?
+    * Example: Summing over the ages of the records.
+    #+BEGIN_SRC elixir
+      [
+        %User{ name: "alan", age: 25 },
+        %User{ name: "fernando", age: 28 },
+        %User{ name: "daniel", age: 25 },
+        %User{ name: "gabriel", age: 12.5 },
+        %User{ name: "eliseu", age: 12 },
+      ]
+
+      def add_user(u1, u2) do
+          return u1.age + u2.age
+      end
+
+      Enum.reduce(users, add_user)
+    #+END_SRC
+*** 🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔
+    #+ATTR_REVEAL: :frag (appear)
+    * You can also map things that are not monoids into monoids
+    * Customer -> CustomerStats
+    * Or map monoids into other monoids!
+    * Logs -> LogsSummary
+    * Action -> State -> State
+    * And then you can reduce afterwards!
+** Composability
+*** Why most functions in your application are only called in one place.
+    #+ATTR_REVEAL: :frag (appear)
+    Most functions are like this:
+    #+ATTR_REVEAL: :frag (appear)
+    #+BEGIN_SRC elixir
+      def specialDivide10by(b) do
+        case b do
+            1 -> 1000
+            2 -> 100
+            _ -> 10/b
+           end
+        end
+    #+END_SRC
+*** Making your function composable.
+   #+ATTR_REVEAL: :frag (appear)
+   * Functions like that have one type as input and two types as output.
+   * Things like that are obviously not composable.
+   * The solutions is to use only functions that go from T -> T
+*** Move the functions that don't behave nicely from one abstraction to the other
+   #+BEGIN_SRC elixir
+     def bind(nil, _fn), do: nil
+     def bind(v, fn), do: {:some, fn.(v)}
+   #+END_SRC
+   #+ATTR_REVEAL: :frag (appear)
+*** Functions like that are monoids too!
+   * If your type implements a bind method that can adapt other functions to
+     work with your type (chances are) you created a ~Monad~!
+   * There we go: Monads are just monoids in the category of endofunctors.
+*** Questions?
+* 🍷 Elixir + Phoenix tips.
+** Weird functional ecosystem.
+   #+ATTR_REVEAL: :frag (appear)
+   * Dynamically typed.
+   * Somewhat composable idioms.
+   * Phoenix provides a suitability increase over Ruby on Rails.
+   * A mixture of Stream I/O with Monadic I/O
+** Composability via Idioms + Let it Crash
+*** The PIPE idiom.
+  #+BEGIN_SRC elixir
+    [1,2,3]
+    |> Enum.map &(&1*2)
+    |> Enum.filter &(&1 < 3)
+    |> Enum.sum
+  #+END_SRC
+*** The WITH idiom.
+  #+BEGIN_SRC elixir
+    def charge_user(id, amount)
+         with %User{} = user <- Repo.get(User, id),
+              {:ok, billing_result} <- PaymentService.charge_user(user, amount) do
+           {:ok, billing_result}
+         else
+           nil ->
+             {:error, :user_does_not_exist}
+
+           {:error, payment_service_error} ->
+             {:error, payment_service_error}
+    end
+  #+END_SRC
+*** Composability via Let it crash
+    * Avoid rescuing errors.
+** Let the data types, not the real world dictate your architecture.
+   #+ATTR_REVEAL: :frag (appear)
+   * Move all your queries to a query module/folder.
+** Make GenServers as simple as possible
+   #+ATTR_REVEAL: :frag (appear)
+   * Testing async things is very hard..
+   * Separate all pure functions to other modules.
+   * Don't bother making mocks for your GenServers.
+   * Just test the application module.
+** Use types.
+   #+ATTR_REVEAL: :frag (appear)
+   Follow your own advises.
+** Mocks are the unholy child of satan.
+   * Use referential transparency in your favor instead.
+** Use the formatter and a linter (credo/dogma).
+   No more wasteful diffs in PRs, yayyy
+* 👋 This is the part where you can get up and run.
+  #+ATTR_REVEAL: :frag (appear)
+  AKA Does anyone have more questions?
